@@ -27,7 +27,6 @@ class MainApplication(ctk.CTkFrame):
         self.btn_next = ctk.CTkButton(master=root, width=150, height=50, text='Next/Enqueue', command=lambda:add_to_queue(self))
         self.btn_next.pack(pady=10)
         self.btn_next.configure(state=ctk.DISABLED)
-        self.btn_next.pack(pady=10)
 
         self.ent_path = ctk.CTkEntry(width=250, placeholder_text='Example: Users/ted/Desktop')
         self.ent_path.pack(pady=10)
@@ -98,13 +97,12 @@ class MainApplication(ctk.CTkFrame):
                 display_downloader_warning(self, error_code='Failed to extract proper ID.')
                 return None
             download_id.append(final_id)
+            send_it = download_id.pop(0)
+            self.file_id.append(send_it)
             with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                 filenames = [self.ent_url.get()] 
                 try:
-                    ydl.download(filenames)
-                    send_it = download_id.pop(0)
-                    self.file_id.append(send_it)
-                    self.btn_next.configure(state=tk.NORMAL)
+                    ydl.download(filenames) 
                 except:
                     display_downloader_warning(self, error_code=f'Try again! May have been a forbidden HTTP error. Or {filenames} is invalid.')
                     self.file_id.clear()
@@ -114,8 +112,8 @@ class MainApplication(ctk.CTkFrame):
 
         def add_to_queue(self):
             self.ent_url.delete(0, 'end')
-            if len(self.file_id[0]) != 11:
-                display_downloader_warning(self, error_code='File ID improperly formatted. Tell Ted there is an error in the enqueue.')
+            if len(self.file_id) == 0:
+                display_downloader_warning(self, error_code='No file ID present.')
                 return None
             else:
                 user_directory = os.getcwd()
