@@ -23,3 +23,7 @@ Note on git pull errors: You may get a git pull error if you have made changes t
 
 I believe that in order to make changes, you will have to request a key from me, feel free to! This is my first git repo, not giving access to the public to make changes is nothing personal haha.
 
+
+
+https://user-images.githubusercontent.com/100298419/174687905-39d61a57-6e66-4dc1-be7d-2de2cca7f504.mov
+
