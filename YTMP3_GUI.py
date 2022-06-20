@@ -25,6 +25,7 @@ class MainApplication(ctk.CTkFrame):
         self.btn_download.pack(pady=10)
 
         self.btn_next = ctk.CTkButton(master=root, width=150, height=50, text='Next/Enqueue', command=lambda:add_to_queue(self))
+        self.btn_next.pack(pady=10)
         self.btn_next.configure(state=ctk.DISABLED)
         self.btn_next.pack(pady=10)
 
@@ -56,7 +57,7 @@ class MainApplication(ctk.CTkFrame):
             self.btn_shuttle.configure(state=tk.DISABLED)
             self.btn_seek_all.configure(state=tk.DISABLED)
             self.error_window = ctk.CTkToplevel(self)
-            self.error_window.geometry('400x200')
+            self.error_window.geometry('600x300')
             error_label = ctk.CTkLabel(master=self.error_window, text=f'Error: {error_code}')
             error_label.pack(pady=10)
             clear_errors = ctk.CTkButton(master=self.error_window, text='OK', width=100, height=50, command=lambda:clear_error_window(self))
@@ -83,6 +84,8 @@ class MainApplication(ctk.CTkFrame):
 
         
         def download_url(self):
+            self.btn_shuttle.configure(state=tk.DISABLED)
+            self.btn_seek_all.configure(state=tk.DISABLED)
             download_id = []
             full_url = self.ent_url.get()
             if full_url == '':
@@ -124,7 +127,9 @@ class MainApplication(ctk.CTkFrame):
                 with os.scandir(user_directory) as new_files:
                     matching_file = [file.name for file in new_files if id_to_add in file.name]
                     file_name = matching_file.pop(0)
-                self.lbox_shuttle_queue.insert(tk.END, file_name)   
+                self.lbox_shuttle_queue.insert(tk.END, file_name)
+                self.btn_seek_all.configure(state=tk.NORMAL)
+                self.btn_shuttle.configure(state=tk.NORMAL)   
 
 
         def shuttle_files(self):
