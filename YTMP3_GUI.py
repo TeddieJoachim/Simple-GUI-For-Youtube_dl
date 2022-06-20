@@ -85,6 +85,7 @@ class MainApplication(ctk.CTkFrame):
         def download_url(self):
             self.btn_shuttle.configure(state=tk.DISABLED)
             self.btn_seek_all.configure(state=tk.DISABLED)
+            self.btn_next.configure(state=tk.NORMAL)
             download_id = []
             full_url = self.ent_url.get()
             if full_url == '':
