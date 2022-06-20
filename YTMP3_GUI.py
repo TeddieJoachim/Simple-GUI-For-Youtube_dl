@@ -83,6 +83,8 @@ class MainApplication(ctk.CTkFrame):
 
         
         def download_url(self):
+            self.btn_shuttle.configure(state=tk.DISABLED)
+            self.btn_seek_all.configure(state=tk.DISABLED)
             download_id = []
             full_url = self.ent_url.get()
             if full_url == '':
@@ -124,7 +126,9 @@ class MainApplication(ctk.CTkFrame):
                 with os.scandir(user_directory) as new_files:
                     matching_file = [file.name for file in new_files if id_to_add in file.name]
                     file_name = matching_file.pop(0)
-                self.lbox_shuttle_queue.insert(tk.END, file_name)   
+                self.lbox_shuttle_queue.insert(tk.END, file_name)
+                self.btn_seek_all.configure(state=tk.NORMAL)
+                self.btn_shuttle.configure(state=tk.NORMAL)   
 
 
         def shuttle_files(self):
